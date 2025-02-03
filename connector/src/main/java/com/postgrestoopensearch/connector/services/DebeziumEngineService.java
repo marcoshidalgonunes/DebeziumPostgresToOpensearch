@@ -8,6 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.postgrestoopensearch.connector.domain.models.Admission;
+import com.postgrestoopensearch.connector.domain.models.Research;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.IOException;
@@ -28,18 +34,46 @@ public class DebeziumEngineService {
     private void start() {
         this.engine = DebeziumEngine.create(Json.class)
                 .using(postgresConnectorConfig.asProperties())
-                .notifying(this::handleEvent) // Correct usage of notifying
+                .notifying(this::handleEvent)
                 .build();
 
         executorService.execute(engine);
     }
 
-    private void handleEvent(ChangeEvent<String, String> changeEvent) { // Correct method signature
-        String key = changeEvent.key();
+    private void handleEvent(ChangeEvent<String, String> changeEvent) {
         String value = changeEvent.value();
-        log.info("Received event - Key: {}, Value: {}", key, value);
-    
-        // Process the change data as needed
+ 
+        try {
+            JsonNode jsonNode = new ObjectMapper().readTree(value);
+            JsonNode data = jsonNode.path("payload").path("after");
+
+            // Determine the table from the change event and process accordingly
+            String table = jsonNode.path("payload").path("source").path("table").asText();;
+            switch (table) {
+                case "admission":
+                    processAdmissionChange(data);
+                    break;
+                case "research":
+                    processResearchChange(data);
+                    break;
+                // Add more cases for additional tables
+                default:
+                    log.warn("Received event for unknown table: {}", table);
+            }            
+        } catch (Exception e) {
+            log.error("Failed to handle change event", e);
+        }
+
+    }
+
+    private void processAdmissionChange(JsonNode data) throws JsonProcessingException, IllegalArgumentException {
+        Admission admission = new ObjectMapper().treeToValue(data, Admission.class);
+        log.info("Deserialized Admission object: {}", admission);
+    }
+
+    private void processResearchChange(JsonNode data) throws JsonProcessingException, IllegalArgumentException {
+        Research research = new ObjectMapper().treeToValue(data, Research.class);
+        log.info("Deserialized Research object: {}", research);
     }
 
     @PreDestroy

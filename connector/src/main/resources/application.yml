@@ -10,4 +10,4 @@ debezium:
         user: 'postgres'
         password: 'postgres'
         schema: 'public'
-        table-include-list: 'public.admission'
+        table-include-list: 'public.admission, public.research'
