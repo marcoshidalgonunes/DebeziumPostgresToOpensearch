@@ -16,6 +16,9 @@ public class DebeziumPostgresConfig {
     @Value("${debezium.postgres.port}")
     int port;
 
+    @Value("${debezium.postgres.server}")
+    String server;
+
     @Value("${debezium.postgres.database}")
     String database;
 
@@ -36,8 +39,9 @@ public class DebeziumPostgresConfig {
     // ... other Debezium configuration properties
 
     @Bean
-    public Configuration postgresConnectorConfig() {
+    Configuration postgresConnectorConfig() {
         return io.debezium.config.Configuration.create()
+            .with("name", "debezium-postgres-connector")
             .with("connector.class", "io.debezium.connector.postgresql.PostgresConnector")
             .with("offset.storage", "org.apache.kafka.connect.storage.MemoryOffsetBackingStore")
             .with("database.hostname", host)
@@ -46,10 +50,10 @@ public class DebeziumPostgresConfig {
             .with("database.user", user)
             .with("database.password", password)
             .with("database.server.id", 184054) // Unique ID, important!
-            .with("database.server.name", "your-postgres-connector") // Logical name, important!
+            .with("database.server.name", server) // Logical name, important!
             .with("table.include.list", tableIncludeList)  // Comma-separated list of tables to capture (e.g., public.table1,public.table2)
             .with("schema.include.list", schema) // Often 'public'
-            // ... other Debezium configuration properties as needed
+            .with("topic.prefix", server)
             .build();
     }
 }

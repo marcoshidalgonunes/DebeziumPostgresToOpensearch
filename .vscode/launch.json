@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ConnectorApplication<connector>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.postgrestoopensearch.connector.ConnectorApplication",
+            "projectName": "connector",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

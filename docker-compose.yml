@@ -1,0 +1,29 @@
+services:
+
+  postgres:
+    image: quay.io/debezium/postgres:17
+    container_name: postgres
+    environment:
+        POSTGRES_PASSWORD: postgres
+    command: postgres -c config_file=/home/config/postgres.conf
+    networks:
+      - lan-network
+    ports:
+        - 5432:5432
+    volumes:
+        - ./postgres.conf:/home/config/postgres.conf
+        - postgresdata:/var/lib/postgresql/data
+    healthcheck:
+        test: ['CMD-SHELL', 'pg_isready']
+        interval: 10s
+        timeout: 5s
+        retries: 10
+
+volumes:
+  postgresdata:
+    external: true
+    name: postgresdata
+
+networks:
+  lan-network:
+    driver: bridge

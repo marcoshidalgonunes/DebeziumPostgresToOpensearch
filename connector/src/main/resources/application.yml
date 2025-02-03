@@ -3,10 +3,11 @@ spring:
         name: 'connector'
 debezium:
     postgres:
-        host: your_postgres_host
+        host: 'localhost'
         port: 5432
-        database: your_database_name
-        user: your_db_user
-        password: your_db_password
-        schema: public
-        table-include-list: public.your_table
+        server: 'dbserver1'
+        database: 'students'
+        user: 'postgres'
+        password: 'postgres'
+        schema: 'public'
+        table-include-list: 'public.admission'

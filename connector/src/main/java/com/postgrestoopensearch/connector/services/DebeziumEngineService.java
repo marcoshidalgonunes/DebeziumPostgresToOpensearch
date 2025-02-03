@@ -1,4 +1,4 @@
-package main.java.com.postgrestoopensearch.connector.services;
+package com.postgrestoopensearch.connector.services;
 
 import io.debezium.config.Configuration;
 import io.debezium.engine.ChangeEvent;
