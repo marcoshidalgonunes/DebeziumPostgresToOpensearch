@@ -44,11 +44,11 @@ public class DebeziumEngineService {
         String value = changeEvent.value();
  
         try {
-            JsonNode jsonNode = new ObjectMapper().readTree(value);
-            JsonNode data = jsonNode.path("payload").path("after");
+            JsonNode payload = new ObjectMapper().readTree(value).path("payload");
+            JsonNode data = payload.path("after");
 
             // Determine the table from the change event and process accordingly
-            String table = jsonNode.path("payload").path("source").path("table").asText();;
+            String table = payload.path("source").path("table").asText();;
             switch (table) {
                 case "admission":
                     processAdmissionChange(data);
@@ -56,7 +56,6 @@ public class DebeziumEngineService {
                 case "research":
                     processResearchChange(data);
                     break;
-                // Add more cases for additional tables
                 default:
                     log.warn("Received event for unknown table: {}", table);
             }            
@@ -68,12 +67,12 @@ public class DebeziumEngineService {
 
     private void processAdmissionChange(JsonNode data) throws JsonProcessingException, IllegalArgumentException {
         Admission admission = new ObjectMapper().treeToValue(data, Admission.class);
-        log.info("Deserialized Admission object: {}", admission);
+        log.info("Deserialized {}", admission);
     }
 
     private void processResearchChange(JsonNode data) throws JsonProcessingException, IllegalArgumentException {
         Research research = new ObjectMapper().treeToValue(data, Research.class);
-        log.info("Deserialized Research object: {}", research);
+        log.info("Deserialized {}", research);
     }
 
     @PreDestroy
