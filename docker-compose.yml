@@ -25,6 +25,8 @@ services:
     environment:
       - discovery.type=single-node
       - bootstrap.memory_lock=true
+      - cluster.routing.allocation.disk.threshold_enabled=false
+      - DISABLE_SECURITY_PLUGIN=true
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
       - OPENSEARCH_INITIAL_ADMIN_PASSWORD=C@r6Cam1M0e
     ulimits:
@@ -40,10 +42,18 @@ services:
         - 9200:9200
     networks:
       - lan-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
   opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards:latest 
     container_name: opensearch-dashboards
+    depends_on:
+      opensearch:
+        condition: service_healthy
     ports:
       - 5601:5601 
     expose:
