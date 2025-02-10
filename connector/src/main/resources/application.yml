@@ -11,3 +11,7 @@ debezium:
         password: 'postgres'
         schema: 'public'
         table-include-list: 'public.admission, public.research'
+opensearch:
+    host: 'localhost:9200'
+    user: 'admin'
+    password: 'C@r6Cam1M0e'
