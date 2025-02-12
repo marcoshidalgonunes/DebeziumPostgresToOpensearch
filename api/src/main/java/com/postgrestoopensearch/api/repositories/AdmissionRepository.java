@@ -1,6 +1,6 @@
-package com.postgrestoopensearch.connector.repositories;
+package com.postgrestoopensearch.api.repositories;
 
-import com.postgrestoopensearch.connector.models.Admission;
+import com.postgrestoopensearch.api.models.Admission;
 
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 

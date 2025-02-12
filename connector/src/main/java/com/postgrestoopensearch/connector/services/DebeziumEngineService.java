@@ -6,9 +6,8 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.postgrestoopensearch.connector.domain.models.Admission;
-import com.postgrestoopensearch.connector.domain.models.Research;
+import com.postgrestoopensearch.connector.models.Admission;
+import com.postgrestoopensearch.connector.models.Research;
 import com.postgrestoopensearch.connector.repositories.AdmissionRepository;
 import com.postgrestoopensearch.connector.repositories.ResearchRepository;
 

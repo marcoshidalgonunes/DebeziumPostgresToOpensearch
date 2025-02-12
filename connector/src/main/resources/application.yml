@@ -1,17 +1,19 @@
+server:
+  port: 8081
 spring:
-    application:
-        name: 'connector'
+  application:
+    name: 'connector'
 debezium:
-    postgres:
-        host: 'localhost'
-        port: 5432
-        server: 'dbserver1'
-        database: 'students'
-        user: 'postgres'
-        password: 'postgres'
-        schema: 'public'
-        table-include-list: 'public.admission, public.research'
+  postgres:
+    host: 'localhost'
+    port: 5432
+    server: 'dbserver1'
+    database: 'students'
+    user: 'postgres'
+    password: 'postgres'
+    schema: 'public'
+    table-include-list: 'public.admission, public.research'
 opensearch:
-    host: 'localhost:9200'
-    user: 'admin'
-    password: 'C@r6Cam1M0e'
+  host: 'localhost:9200'
+  user: 'admin'
+  password: 'C@r6Cam1M0e'

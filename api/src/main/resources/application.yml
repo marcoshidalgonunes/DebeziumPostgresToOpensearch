@@ -1,0 +1,9 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: api-app
+opensearch:
+  host: 'localhost:9200'
+  user: 'admin'
+  password: 'C@r6Cam1M0e'

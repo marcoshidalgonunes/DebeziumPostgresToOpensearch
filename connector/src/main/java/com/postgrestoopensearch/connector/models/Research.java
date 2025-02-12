@@ -1,4 +1,4 @@
-package com.postgrestoopensearch.connector.domain.models;
+package com.postgrestoopensearch.connector.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
