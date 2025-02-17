@@ -49,8 +49,8 @@ files inside, create a database called `students`, and load the data on
 students' chance of admission into the `admission` table.
 
 ```
-docker cp data/admit_1.csv postgres:/tmp
-docker cp data/research_1.csv postgres:/tmp
+docker cp data/admit.csv postgres:/tmp
+docker cp data/research.csv postgres:/tmp
 
 docker exec -it postgres psql -U postgres
 ```
@@ -69,7 +69,7 @@ CREATE TABLE admission
 (student_id INTEGER, gre INTEGER, toefl INTEGER, cpga DOUBLE PRECISION, admit_chance DOUBLE PRECISION,
 CONSTRAINT student_id_pk PRIMARY KEY (student_id));
 
-\copy admission FROM '/tmp/admit_1.csv' DELIMITER ',' CSV HEADER
+\copy admission FROM '/tmp/admit.csv' DELIMITER ',' CSV HEADER
 ```
 
 Load the research data table with:
@@ -79,7 +79,7 @@ CREATE TABLE research
 (student_id INTEGER, rating INTEGER, research INTEGER,
 PRIMARY KEY (student_id));
 
-\copy research FROM '/tmp/research_1.csv' DELIMITER ',' CSV HEADER
+\copy research FROM '/tmp/research.csv' DELIMITER ',' CSV HEADER
 ```
 
 We can disconnect from Postgres container with the command `exit`.
