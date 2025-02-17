@@ -3,6 +3,6 @@ server:
 spring:
   application:
     name: api-app
-opensearch:
-  host: 'localhost:9200'
-  scheme: 'http'
+  profiles: 
+    active: local
+

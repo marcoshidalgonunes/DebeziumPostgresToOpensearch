@@ -48,21 +48,21 @@ services:
       timeout: 5s
       retries: 20
 
-  opensearch-dashboards:
-    image: opensearchproject/opensearch-dashboards:latest 
-    container_name: opensearch-dashboards
+  api:
+    container_name: api 
+    image: ${DOCKER_REGISTRY-}debeziumpostgrestoopensearch-api
+    build:
+      context: ./api/.
+      dockerfile: Dockerfile
     depends_on:
       opensearch:
         condition: service_healthy
-    ports:
-      - 5601:5601 
-    expose:
-      - "5601" 
-    environment:
-      OPENSEARCH_HOSTS: '["http://opensearch:9200"]' 
-      DISABLE_SECURITY_DASHBOARDS_PLUGIN: true
+    links:
+      - opensearch
     networks:
       - lan-network
+    ports:
+      - 8081:8081
 
 volumes:
   postgresdata:
