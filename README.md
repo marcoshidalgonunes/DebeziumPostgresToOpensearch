@@ -16,9 +16,6 @@ These CSV files are in `data` folder.
 ## Components
 
 The following technologies are used through Docker containers:
-* Kafka, the streaming platform
-* Kafka Connect, pulled from [Debezium](https://debezium.io/), which will
-source data through Kafka
 * [PostgreSQL](https://www.postgresql.org/), pulled from [Debezium](https://debezium.io/), tailored for use with Connect, as Database for commands.
 * [OpenSearch](https://www.opensearch.org), as database for queries.
 * [Java 21+](https://openjdk.java.net), to create the projects for applications used in this demo
