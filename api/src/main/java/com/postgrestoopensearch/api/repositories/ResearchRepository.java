@@ -1,8 +1,11 @@
 package com.postgrestoopensearch.api.repositories;
 
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
+import java.util.List;
 
 import com.postgrestoopensearch.api.models.Research;
 
-public interface ResearchRepository extends ElasticsearchRepository<Research, Integer>, CustomResearchRepository {
+public interface ResearchRepository {
+    List<Research> findByResearch(int research);
+
+    void deleteAll();
 }

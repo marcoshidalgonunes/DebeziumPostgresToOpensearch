@@ -27,6 +27,6 @@ public class AdmissionController {
     @DeleteMapping("/deleteAll")
     public ResponseEntity<?> deleteAll() {
         admissionService.deleteAll();
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

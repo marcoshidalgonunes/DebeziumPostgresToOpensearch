@@ -34,6 +34,6 @@ public class ResearchController {
     @DeleteMapping("/deleteAll")
     public ResponseEntity<?> deleteAll() {
         researchService.deleteAll();
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }
