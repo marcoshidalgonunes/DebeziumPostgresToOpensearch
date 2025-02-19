@@ -9,12 +9,9 @@ import org.opensearch.client.RestClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
-
 import jakarta.annotation.PreDestroy;
 
 @Configuration
-@EnableElasticsearchRepositories(basePackages = "com.postgrestoopensearch.connector.repositories")
 public class OpenSearchClientConfig {
 
     @Value("${opensearch.host}")
