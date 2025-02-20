@@ -34,6 +34,7 @@ public class ResearchRepositoryImpl implements ResearchRepository {
             SearchRequest searchRequest = new SearchRequest("research");
             SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
             sourceBuilder.query(QueryBuilders.matchQuery("research", research));
+            sourceBuilder.size(1000); // Set the size to a large number to fetch all items according to the criteria
             searchRequest.source(sourceBuilder);
 
             SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
