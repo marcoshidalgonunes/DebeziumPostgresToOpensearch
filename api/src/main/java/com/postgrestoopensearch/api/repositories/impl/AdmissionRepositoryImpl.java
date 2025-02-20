@@ -11,6 +11,7 @@ import org.opensearch.index.query.QueryBuilders;
 import org.opensearch.index.reindex.DeleteByQueryRequest;
 import org.opensearch.search.SearchHit;
 import org.opensearch.search.builder.SearchSourceBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +19,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.postgrestoopensearch.api.models.Admission;
 import com.postgrestoopensearch.api.repositories.AdmissionRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Repository
 public class AdmissionRepositoryImpl implements AdmissionRepository {
 
@@ -41,7 +45,7 @@ public class AdmissionRepositoryImpl implements AdmissionRepository {
                 return Optional.of(admission);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Error reading admission index ", e);
         }
         return Optional.empty();
     }
@@ -53,7 +57,7 @@ public class AdmissionRepositoryImpl implements AdmissionRepository {
             
             client.deleteByQuery(request, RequestOptions.DEFAULT);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Error deleting admission index ", e);
         }
     }
     
