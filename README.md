@@ -90,6 +90,7 @@ To run the application and populate OpenSearch indexes, run the command:
 mvn spring-boot:run -f connector/pom.xml
 ```
 
+After the application starts, it can be stopped pressing `Ctrl+C`.
 
 ## Query data from OpenSearch
 
