@@ -18,19 +18,12 @@ public class OpenSearchConfig extends OpenSearchConfiguration {
     @Value("${opensearch.host}")
     String host;
 
-    @Value("${opensearch.user}")
-    String user;
-
-    @Value("${opensearch.password}")
-    String password;
-
     @NonNull
     @Override
     public ClientConfiguration clientConfiguration() {
   
       return ClientConfiguration.builder()
           .connectedTo(host)
-          .withBasicAuth(user, password)
           .build();
     }
 }

@@ -1,8 +1,4 @@
 package com.postgrestoopensearch.api.repositories.impl;
-import org.opensearch.client.RequestOptions;
-import org.opensearch.client.RestHighLevelClient;
-import org.opensearch.index.query.QueryBuilders;
-import org.opensearch.index.reindex.DeleteByQueryRequest;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +7,12 @@ import java.util.List;
 
 import org.opensearch.action.search.SearchRequest;
 import org.opensearch.action.search.SearchResponse;
+import org.opensearch.client.RequestOptions;
+import org.opensearch.client.RestHighLevelClient;
+import org.opensearch.index.query.QueryBuilders;
+import org.opensearch.index.reindex.DeleteByQueryRequest;
 import org.opensearch.search.builder.SearchSourceBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +20,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.postgrestoopensearch.api.models.Research;
 import com.postgrestoopensearch.api.repositories.ResearchRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Repository
 public class ResearchRepositoryImpl implements ResearchRepository {
 
@@ -44,13 +48,13 @@ public class ResearchRepositoryImpl implements ResearchRepository {
                 try {
                     researchs.add(objectMapper.readValue(hit.getSourceAsString(), Research.class));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.error("Error reading research index ", e);
                 }
             });
 
             return researchs;
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Error deleting research index ", e);
             return Collections.emptyList();
         }
     }
