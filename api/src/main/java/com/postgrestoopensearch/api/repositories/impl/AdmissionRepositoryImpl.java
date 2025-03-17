@@ -35,7 +35,7 @@ public class AdmissionRepositoryImpl implements AdmissionRepository {
         try {
             SearchRequest searchRequest = new SearchRequest("admission");
             SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-            sourceBuilder.query(QueryBuilders.termQuery("studentId", studentId));
+            sourceBuilder.query(QueryBuilders.termQuery("student_id", studentId));
             searchRequest.source(sourceBuilder);
 
             SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);

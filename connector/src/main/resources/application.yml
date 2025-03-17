@@ -13,3 +13,4 @@ debezium:
     table-include-list: 'public.admission, public.research'
 opensearch:
   host: 'localhost:9200'
+  scheme: 'http'

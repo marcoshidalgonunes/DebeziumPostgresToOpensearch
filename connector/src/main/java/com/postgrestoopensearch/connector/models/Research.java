@@ -18,9 +18,7 @@ public class Research {
     @JsonProperty("student_id")
     int studentId;
 
-    @JsonProperty("rating")
     int rating;
 
-    @JsonProperty("research")
     int research;
 }

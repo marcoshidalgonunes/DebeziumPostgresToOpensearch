@@ -18,13 +18,10 @@ public class Admission {
     @JsonProperty("student_id")
     int studentId;
     
-    @JsonProperty("gre")
     int gre;
 
-    @JsonProperty("toefl")
     int toefl;
 
-    @JsonProperty("cpga")
     double cpga;
 
     @JsonProperty("admit_chance")
