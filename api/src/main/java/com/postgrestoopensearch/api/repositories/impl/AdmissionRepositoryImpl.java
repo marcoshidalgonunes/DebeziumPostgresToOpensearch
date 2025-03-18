@@ -8,7 +8,6 @@ import org.opensearch.action.search.SearchResponse;
 import org.opensearch.client.RequestOptions;
 import org.opensearch.client.RestHighLevelClient;
 import org.opensearch.index.query.QueryBuilders;
-import org.opensearch.index.reindex.DeleteByQueryRequest;
 import org.opensearch.search.SearchHit;
 import org.opensearch.search.builder.SearchSourceBuilder;
 
@@ -18,12 +17,13 @@ import org.springframework.stereotype.Repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.postgrestoopensearch.api.models.Admission;
 import com.postgrestoopensearch.api.repositories.AdmissionRepository;
+import com.postgrestoopensearch.api.repositories.OpenSearchBaseRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Repository
-public class AdmissionRepositoryImpl implements AdmissionRepository {
+public class AdmissionRepositoryImpl extends OpenSearchBaseRepository implements AdmissionRepository {
 
     @Autowired
     private RestHighLevelClient client;
@@ -51,14 +51,7 @@ public class AdmissionRepositoryImpl implements AdmissionRepository {
     }
 
     public void deleteAll() {
-        try {
-            DeleteByQueryRequest request = new DeleteByQueryRequest("admission");
-            request.setQuery(QueryBuilders.matchAllQuery());
-            
-            client.deleteByQuery(request, RequestOptions.DEFAULT);
-        } catch (IOException e) {
-            log.error("Error deleting admission index ", e);
-        }
+        super.deleteAll("admission");
     }
     
 }

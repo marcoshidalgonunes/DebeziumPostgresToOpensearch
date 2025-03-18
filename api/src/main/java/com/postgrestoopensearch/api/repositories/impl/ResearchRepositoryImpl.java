@@ -10,7 +10,6 @@ import org.opensearch.action.search.SearchResponse;
 import org.opensearch.client.RequestOptions;
 import org.opensearch.client.RestHighLevelClient;
 import org.opensearch.index.query.QueryBuilders;
-import org.opensearch.index.reindex.DeleteByQueryRequest;
 import org.opensearch.search.builder.SearchSourceBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +17,14 @@ import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.postgrestoopensearch.api.models.Research;
+import com.postgrestoopensearch.api.repositories.OpenSearchBaseRepository;
 import com.postgrestoopensearch.api.repositories.ResearchRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Repository
-public class ResearchRepositoryImpl implements ResearchRepository {
+public class ResearchRepositoryImpl extends OpenSearchBaseRepository implements ResearchRepository {
 
     @Autowired
     private RestHighLevelClient client;
@@ -60,13 +60,6 @@ public class ResearchRepositoryImpl implements ResearchRepository {
     }
 
     public void deleteAll() {
-        try {
-            DeleteByQueryRequest request = new DeleteByQueryRequest("research");
-            request.setQuery(QueryBuilders.matchAllQuery());
-            
-            client.deleteByQuery(request, RequestOptions.DEFAULT);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        super.deleteAll("research");
     }
 }
