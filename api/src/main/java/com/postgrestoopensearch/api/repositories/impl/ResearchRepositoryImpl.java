@@ -44,17 +44,13 @@ public class ResearchRepositoryImpl extends OpenSearchBaseRepository implements 
             SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
 
             List<Research> researchs = new ArrayList<>();
-            searchResponse.getHits().forEach(hit -> {
-                try {
-                    researchs.add(objectMapper.readValue(hit.getSourceAsString(), Research.class));
-                } catch (IOException e) {
-                    log.error("Error reading research index ", e);
-                }
-            });
+            for (var hit : searchResponse.getHits()) {
+                researchs.add(objectMapper.readValue(hit.getSourceAsString(), Research.class));
+            }
 
             return researchs;
         } catch (IOException e) {
-            log.error("Error deleting research index ", e);
+            log.error("Error reading research index ", e);
             return Collections.emptyList();
         }
     }
